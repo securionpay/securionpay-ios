@@ -1,0 +1,94 @@
+# Rules for SwiftLint version 0.21.0
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+  - trailing_closure
+  - function_body_length
+  - class_newline
+  - nesting
+  - closure_end_indentation
+  - unused_setter_value
+  - implicit_getter
+
+opt_in_rules:
+  - closure_end_indentation
+  - closure_spacing
+  - empty_count
+  - explicit_init
+  - fatal_error_message
+  - first_where
+  - implicit_return
+  - joined_default_parameter
+  - let_var_whitespace # enable locally and see if we violate it and then decide
+  - multiline_parameters
+  - no_extension_access_modifier
+  - object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - private_outlet
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - single_test_class # see how it works, remove at will
+  - trailing_closure # see if it does not interfere with animation blocks
+  - unneeded_parentheses_in_closure_argument
+  - vertical_parameter_alignment_on_call
+  - array_init
+  - collection_alignment
+  - contains_over_first_not_nil
+  - empty_string
+  - fallthrough
+  - file_header
+#  - file_name
+  - force_unwrapping
+  - identical_operands
+  - last_where
+  - legacy_multiple
+  - legacy_random
+  - lower_acl_than_parent
+  - modifier_order
+#  - multiline_arguments_brackets
+#  - multiline_function_chains
+
+excluded:
+  - Pods
+  - fastlane
+  - securionpay-ios/Frameworks
+  - UITests
+  - UnitTests
+  - Example
+
+file_length:
+  warning: 1000
+#  error: 600 # can be changed or removed if needed
+
+type_name:
+  min_length: 3
+  max_length: 100
+
+type_body_length: 1000
+function_parameter_count: 6
+
+private_outlet:
+  allow_private_set: true
+
+identifier_name:
+  min_length:
+    warning: 2
+  max_length:
+    warning: 100
+
+custom_rules:
+  trailing_parenthesis:
+    name: "Trailing Parenthesis Newline"
+    regex: "\n\\s*\n\\}"
+    message: "There should be no newline before a trailing parenthesis"
+
+  empty_closure:
+    name: "Empty Closure"
+    regex: "\\{\\s{1,2}\\}"
+    message: "Empty closures should not contain any whitespaces"
+
+  too_many_whitespaces:
+    name: "Too Many Whitespaces"
+    regex: "[^\\s\\/][ \\t]{2,}\\S"

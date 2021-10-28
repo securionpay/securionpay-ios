@@ -1,0 +1,2 @@
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SecurionPay.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ipworks3ds_sdk.framework

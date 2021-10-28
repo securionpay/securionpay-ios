@@ -1,0 +1,3 @@
+git_url("git@git.securionpay.lan:sigia/ios-certificates.git")
+app_identifier(["com.sigia"])
+username("mobile@securionpay.com")
