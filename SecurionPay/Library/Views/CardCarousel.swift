@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-protocol DonationCarouselDelegate: class {
+protocol DonationCarouselDelegate: AnyObject {
     func didTap(donation: Donation)
 }
 

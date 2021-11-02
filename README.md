@@ -22,16 +22,6 @@ We provide methods corresponding to SecurionPay API. It allows you creating an e
 
 You can process payments in 18 languages.
 
-#### Example application
-
-We created simple application to demonstrate Framework's features.
-
-## Requirements and limitations
-
-Strict requirements of PCI 3DS SDK make development impossible. Running on simulator or debugging are forbidden in a production build of your application. We provide two versions of Framework both for Debug and Release builds so you can create and debug your application without any issues.
-
-Notice that XCode release builds and AdHoc builds with release version of Framework are forbidden too. Any attempt to perform the operation results with error. The only tool that allows to test the release version is Apple TestFlight. 
-
 ## Installation
 
 ### CocoaPods
@@ -41,33 +31,12 @@ Because of issues related with XCFramework, you have to use version **1.10.1** o
 Use the following entry in your Podfile:
 
 ```ruby
-pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
-pod 'SecurionPay', :path => '..', :configurations => ['Release']
+pod 'SecurionPay', '~> 1.0.0'
 ```
 
 Then run `pod install`.
 
-Do not forget to import the framework at the beginning of any file you'd like to use SecurionPay in. Preprocessor directives are required because the correct version of Framework has to be selected.
-
-##### Swift
-
-```swift
-#if canImport(SecurionPayDebug)
-import SecurionPayDebug
-#else
-import SecurionPay
-#endif
-```
-
-##### Objective-C
-
-```objective-c
-#ifdef DEBUG
-@import SecurionPayDebug;
-#else
-@import SecurionPay;
-#endif
-```
+Do not forget to import the framework with `import SecurionPay` or with `@import SecurionPay;` for Objectove-C projects at the beginning of any file you'd like to use SecurionPay in.
 
 ## Usage
 
@@ -75,22 +44,18 @@ If you have not created an account yet, you can do it here: https://securionpay.
 
 ### Configuration
 
-To configure the framework you need to provide the public key. You can find it here: https://securionpay.com/account-settings. Notice that there are two types of keys: live and test. The type of key determines application mode. Make sure you used a live key in build released to App Store. You can provide it on your backend side as well.
+To configure the framework you need to provide the public key. You can find it here: https://securionpay.com/account-settings. Notice that there are two types of keys: live and test. The type of key determines application mode. Make sure you used a live key in build released to App Store.
 
-Framework also requires you to specify Bundle Identifier of application. This should match the Bundle Identifier used when building the application. Any attempt to perform the operation in release mode results in error if they do not match. This value should not be hardcoded in the application for security reasons. You should provide it on your backend side.
-
-##### Swift
+#### Swift
 
 ```swift
 SecurionPay.shared.publicKey = "pk_test_..."
-SecurionPay.shared.bundleIdentifier = "..."
 ```
 
-##### Objective-C
+#### Objective-C
 
 ```objective-c
 SecurionPay.shared.publicKey = @"pk_test_...";
-SecurionPay.shared.bundleIdentifier = @"";
 ```
 
 ### Checkout View Controller
@@ -99,7 +64,7 @@ Checkout View Controller is an out-of-box solution designed to provide the smoot
 
 To present Checkout View Controller you need to create Checkout Request on your backend side. You can find more informations about Checkout Requests here: https://securionpay.com/docs/api#checkout-request. You can also create test Checkout Request here: https://securionpay.com/docs/checkout-request-generator.
 
-##### Swift
+#### Swift
 
 ```swift
 let checkoutRequest = ...
@@ -117,7 +82,7 @@ SecurionPay.shared.showCheckoutViewController(
     }
 ```
 
-##### Objective-C
+#### Objective-C
 
 ```objective-c
 SPCheckoutRequest* checkoutRequest = ...;
@@ -135,39 +100,9 @@ SPCheckoutRequest* checkoutRequest = ...;
 }];
 ```
 
-#### Saved cards
-
-Checkout View Controller has a feature allowing to remember cards used before. To delete them, use code:
-
-##### Swift
-
-```swift
-SecurionPay.shared.cleanSavedCards()
-```
-
-##### Objective-C
-
-```objective-c
-[[SecurionPay shared] cleanSavedCards];
-```
-
-#### Possible errors
-
-| Type          | Code                      | Message                                                | Explanation                                                  |
-| ------------- | ------------------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
-| .sdk          | .unsupportedValue         | "Unsupported value: \(value)"                          | Framework does not accept Checkout Request fields: **termsAndConditionsUrl**, **customerId**, **crossSaleOfferIds**. |
-| .sdk          | .incorrectCheckoutRequest | "Incorrect checkout request"                           | Checkout Request looks corrupted. Make sure you create it according to documentation. |
-| .threeDSecure | .unknown                  | "Unknown 3D Secure Error. Check your SDK integration." |                                                              |
-| .threeDSecure | .deviceJailbroken         | "The device is jailbroken."                            |                                                              |
-| .threeDSecure | .integrityTampered        | "The integrity of the SDK has been tampered."          |                                                              |
-| .threeDSecure | .simulator                | "An emulator is being used to run the app."            |                                                              |
-| .threeDSecure | .osNotSupported           | "The OS or the OS version is not supported."           |                                                              |
-
-
-
 ### Custom Form
 
-##### Swift
+#### Swift
 
 ```swift
 let request = TokenRequest(
@@ -188,29 +123,6 @@ SecurionPay.shared.createToken(with: request) { token, error in
     }
 }
 ```
-
-#### Possible errors
-
-##### Creating token
-
-| Type       | Code                | Message                                              | Explanation |
-| ---------- | ------------------- | ---------------------------------------------------- | ----------- |
-| .cardError | .invalidNumber      | "The card number is not a valid credit card number." |             |
-| .cardError | .invalidExpiryMonth | "The card's expiration month is invalid."            |             |
-| .cardError | .invalidExpiryYear  | "The card's expiration year is invalid."             |             |
-| .cardError | .expiredCard        | "The card has expired."                              |             |
-| .cardError | .invalidCVC         | "Your card's security code is invalid."              |             |
-
-##### Authentication
-
-| Type          | Code               | Message                                                | Explanation                                                  |
-| ------------- | ------------------ | ------------------------------------------------------ | ------------------------------------------------------------ |
-| .sdk          | .anotherOperation  | "Another task is in progress."                         | You can complete only one authentication operation at a time. Your UI should prevent it from being triggered multiple times. |
-| .threeDSecure | .unknown           | "Unknown 3D Secure Error. Check your SDK integration." |                                                              |
-| .threeDSecure | .deviceJailbroken  | "The device is jailbroken."                            |                                                              |
-| .threeDSecure | .integrityTampered | "The integrity of the SDK has been tampered."          |                                                              |
-| .threeDSecure | .simulator         | "An emulator is being used to run the app."            |                                                              |
-| .threeDSecure | .osNotSupported    | "The OS or the OS version is not supported."           |                                                              |
 
 ## Testing
 

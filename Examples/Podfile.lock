@@ -26,11 +26,11 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  SecurionPay: 27d4f6efe9239d6eea95be349a7a2cd79f7a202a
-  SecurionPayDebug: ef92a870ef428a854c9542f0e2eb5c0363bbd2e7
+  SecurionPay: 2659d8e5cece54562e6faed9a654a00e824504ec
+  SecurionPayDebug: dd0fee6b87b5fc05ea2a8554b9a8a3eeccb0d0be
   SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
-PODFILE CHECKSUM: e3abb58e7ed2e59d0eefafcf8878ee3de627874f
+PODFILE CHECKSUM: d264b9e5b4afd33c73f882c3bb37cfb10c3bd8ae
 
 COCOAPODS: 1.11.2

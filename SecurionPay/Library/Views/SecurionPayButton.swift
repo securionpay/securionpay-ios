@@ -11,7 +11,7 @@ final class SecurionPayButton: UIView {
         case secondary
     }
     private let button = UIButton()
-    private let activityIndicator = UIActivityIndicatorView(style: .white)
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
     private let checkmark = UIImageView(image: UIImage.fromBundle(named: "checkmark"))
     private let imageView = UIImageView()
     
@@ -94,6 +94,7 @@ final class SecurionPayButton: UIView {
                 self.button.layer.cornerRadius = self.bounds.height/2
                 self.button.titleLabel?.alpha = 0
                 self.activityIndicator.alpha = 1
+                self.activityIndicator.color = .white
                 self.button.backgroundColor = Style.Color.primary
                 self.checkmark.alpha = 0
                 self.checkmark.transform = CGAffineTransform(scaleX: 0, y: 0)
@@ -148,6 +149,7 @@ final class SecurionPayButton: UIView {
         ])
         activityIndicator.startAnimating()
         activityIndicator.alpha = 0
+        activityIndicator.color = .white
         
         checkmark.translatesAutoresizingMaskIntoConstraints = false
         addSubview(checkmark)

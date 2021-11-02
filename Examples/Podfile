@@ -1,21 +1,21 @@
 use_frameworks!
 
 target 'Example' do
-   platform :ios, '12.1'
+   platform :ios, '13'
    pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
    pod 'SecurionPay', :path => '..', :configurations => ['Release']
    pod 'SwiftLint', '0.41.0'
 end
 
 target 'Example ObjC' do
-   platform :ios, '12.1'
+   platform :ios, '13'
    pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
    pod 'SecurionPay', :path => '..', :configurations => ['Release']
    pod 'SwiftLint', '0.41.0'
 end
 
 target 'UITests' do
-   platform :ios, '12.1'
+   platform :ios, '13'
    inherit! :search_paths
    pod 'SnapshotTesting', '~> 1.8.1'
 end

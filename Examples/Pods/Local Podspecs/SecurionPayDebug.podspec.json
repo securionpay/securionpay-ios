@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "summary": "iOS SDK for SecurionPay",
   "description": "iOS SDK for SecurionPay",
-  "homepage": "https://securionpay.com/",
+  "homepage": "https://github.com/securionpay/securionpay-ios.git",
   "license": "MIT",
   "authors": "securionpay",
   "platforms": {
-    "ios": "12.0"
+    "ios": "13.0"
   },
   "swift_versions": "4.2",
   "source": {
