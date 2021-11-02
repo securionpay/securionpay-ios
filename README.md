@@ -41,8 +41,8 @@ Because of issues related with XCFramework, you have to use version **1.10.1** o
 Use the following entry in your Podfile:
 
 ```ruby
-pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
-pod 'SecurionPay', :path => '..', :configurations => ['Release']
+pod 'SecurionPayDebug', :configurations => ['Debug']
+pod 'SecurionPay', :configurations => ['Release']
 ```
 
 Then run `pod install`.
