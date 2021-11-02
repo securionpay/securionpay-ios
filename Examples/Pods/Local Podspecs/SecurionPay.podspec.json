@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "summary": "iOS SDK for SecurionPay",
   "description": "iOS SDK for SecurionPay",
-  "homepage": "https://github.com/peteranny/",
+  "homepage": "https://securionpay.com/",
   "license": "MIT",
   "authors": "securionpay",
   "platforms": {
@@ -15,12 +15,12 @@
     "tag": "1.0.0"
   },
   "source_files": "SecurionPay/Library/**/*.{h,m,swift}",
-  "vendored_frameworks": "SecurionPay/Frameworks/ipworks3ds_sdk.xcframework",
+  "vendored_frameworks": "SecurionPay/Frameworks/Release/ipworks3ds_sdk.xcframework",
   "subspecs": [
     {
       "name": "Resources",
       "resource_bundles": {
-        "SecurionPayBundle": [
+        "SecurionPayReleaseBundle": [
           "SecurionPay/**/*.{strings}",
           "SecurionPay/**/*.{png}",
           "SecurionPay/**/*.{ttf}"

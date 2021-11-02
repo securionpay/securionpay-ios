@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 internal final class CheckoutManager {
-    internal static let shared = CheckoutManager()
     private let apiProvider = APIProvider()
     
     internal func pay(
@@ -43,7 +42,7 @@ internal final class CheckoutManager {
                         return
                     }
                     
-                    guard enrolled else {
+                    guard enrolled && initResponse.version.hasPrefix("2") else {
                         self.apiProvider.pay(
                             token: token,
                             checkoutRequest: checkoutRequest,
@@ -58,18 +57,26 @@ internal final class CheckoutManager {
                     }
                     
                     do {
-                        try ThreeDManager.shared.initializeSDK(
+                        let threeDSecureWarnings = try ThreeDManager.shared.initializeSDK(
                             cardBrand: initResponse.token.brand,
                             certificate: initResponse.directoryServerCertificate,
-                            sdkLicense: initResponse.sdkLicense ?? ""
+                            sdkLicense: initResponse.sdkLicense ?? .empty,
+                            bundleIdentifier: SecurionPay.shared.bundleIdentifier ?? .empty
                         )
-                        try ThreeDManager.shared.createTransaction(version: initResponse.version, cardBrand: initResponse.token.brand)
-                        guard let authRequestParam = try ThreeDManager.shared.getAuthenticationRequestParameters()?.getAuthRequest() else {
-                            completion(nil, .unknown)
+                        try ThreeDManager.shared.createTransaction(
+                            version: initResponse.version,
+                            cardBrand: initResponse.token.brand
+                        )
+                        guard let authRequestParam = try ThreeDManager.shared.getAuthenticationRequestParameters()?.getAuthRequest(), !authRequestParam.isEmpty else {
+                            if let warning = threeDSecureWarnings.first {
+                                completion(nil, .threeDError(with: warning))
+                            } else {
+                                completion(nil, .unknown3DSecureError)
+                            }
                             return
                         }
-                        try ThreeDManager.shared.showProgressDialog()
                         
+                        try ThreeDManager.shared.showProgressDialog()
                         self.apiProvider.threeDSecureAuthenticate(token: initResponse.token, authenticationParameters: authRequestParam) { [weak self] authenticationResult, authenticationError in
                             guard let self = self else { return }
                             guard let result = authenticationResult else {
@@ -151,13 +158,13 @@ internal final class CheckoutManager {
                                     }
                                 } catch {
                                     ThreeDManager.shared.cancelProgressDialog()
-                                    completion(nil, .unknown)
+                                    completion(nil, .unknown3DSecureError)
                                 }
                             }
                         }
                     }
                     catch {
-                        completion(nil, .unknown)
+                        completion(nil, .unknown3DSecureError)
                     }
                 }
             }

@@ -4,14 +4,18 @@ import Foundation
 
 final class PaymentTestsPreventingRateLimits: XCTestCase {
     private var testExpectation: XCTestExpectation?
-    private var navController: UINavigationController!
+    private var checkoutManager: CheckoutManager!
+    private var viewController: UIViewController!
+    private var navigationController: UINavigationController!
     
     override func setUp() {
         super.setUp()
         testExpectation = self.expectation(description: "Token")
-        navController = UINavigationController(rootViewController: UIViewController())
+        checkoutManager = CheckoutManager()
+        viewController = UIViewController()
+        navigationController = UINavigationController(rootViewController: viewController)
         SecurionPay.shared.publicKey = SecurionPayAPI.publicKey
-
+        SecurionPay.shared.bundleIdentifier = "com.securionpay.sdk.SecurionPay"
 //        sleep(120) // wait two minutes to prevent rate limit
     }
 
@@ -20,7 +24,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate(threeDS: false)
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(token: token, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(token: token, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -42,7 +46,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate(threeDS: false)
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -64,11 +68,11 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate(threeDS: false)
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, remember: true, navigationControllerFor3DS: navController) { result, error in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, remember: true, navigationControllerFor3DS: viewController) { result, error in
             XCTAssertNotNil(result)
             XCTAssertNil(error)
 
-            CheckoutManager.shared.lookup(email: email) { lookupResult, lookupError in
+            self.checkoutManager.lookup(email: email) { lookupResult, lookupError in
                 guard let lookupResult = lookupResult else { XCTFail(); return }
                 XCTAssertEqual("53", lookupResult.card.last2)
                 XCTAssertEqual("maestro", lookupResult.card.brand)
@@ -85,7 +89,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate(threeDS: false)
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, remember: true, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, remember: true, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNotNil(result)
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
@@ -96,13 +100,16 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
             XCTAssertEqual(String(tokenRequest.number.suffix(4)), charge.card.last4)
             XCTAssertEqual(tokenRequest.expirationMonth, charge.card.expMonth)
             XCTAssertEqual(tokenRequest.expirationYear, charge.card.expYear)
-            CheckoutManager.shared.savedToken(email: email) { token, tokenError in
+            self.checkoutManager.savedToken(email: email) { token, tokenError in
                 XCTAssertNotNil(token)
                 XCTAssertNil(tokenError)
-                XCTAssertEqual(token?.expirationMonth, tokenRequest.expirationMonth)
-                XCTAssertEqual(token?.expirationYear, tokenRequest.expirationYear)
+                let tokenData = SecurionPayAPI().getToken(with: token?.id ?? "")
+                XCTAssertEqual(tokenData.expirationMonth, tokenRequest.expirationMonth)
+                XCTAssertEqual(tokenData.expirationYear, tokenRequest.expirationYear)
+                XCTAssertEqual(String(tokenRequest.number.prefix(6)), tokenData.first6)
+                XCTAssertEqual(String(tokenRequest.number.suffix(4)), tokenData.last4)
 
-                CheckoutManager.shared.pay(token: token!, checkoutRequest: checkoutRequest, email: email, remember: true, cvc: "123", sms: nil, navigationControllerFor3DS: self.navController) { paymentResult, paymentError in
+                self.checkoutManager.pay(token: token!, checkoutRequest: checkoutRequest, email: email, remember: true, cvc: "123", sms: nil, navigationControllerFor3DS: self.viewController) { paymentResult, paymentError in
                     XCTAssertNotNil(paymentResult)
                     XCTAssertNil(paymentError)
                     let charge = SecurionPayAPI().getCharge(with: paymentResult!.chargeId!)
@@ -127,7 +134,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generateDonation()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, amount: 3000, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, amount: 3000, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -150,7 +157,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generateSubscription(planId: plan.id)
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, amount: plan.amount, currency: plan.currency, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, amount: plan.amount, currency: plan.currency, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let subscription = SecurionPayAPI().getSubscription(with: result!.subscriptionId!, customerId: result!.customer!.id)
             XCTAssertEqual(result!.subscriptionId, subscription.id)
@@ -171,7 +178,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             guard let result = result else { XCTFail(); return }
             let charge = SecurionPayAPI().getCharge(with: result.chargeId ?? "")
@@ -203,7 +210,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -233,7 +240,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -263,7 +270,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -293,7 +300,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.enrolledCardIsRequired, error?.code)
             XCTAssertEqual(.invalidRequest, error?.type)
@@ -314,7 +321,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)
@@ -344,7 +351,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.enrolledCardIsRequired, error?.code)
             XCTAssertEqual(.invalidRequest, error?.type)
@@ -365,7 +372,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.successfulLiabilityShiftIsRequired, error?.code)
             XCTAssertEqual(.invalidRequest, error?.type)
@@ -386,7 +393,7 @@ final class PaymentTestsPreventingRateLimits: XCTestCase {
         )
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: viewController) { (result, error) in
             XCTAssertNil(error)
             let charge = SecurionPayAPI().getCharge(with: result!.chargeId!)
             XCTAssertEqual(result!.chargeId, charge.id)

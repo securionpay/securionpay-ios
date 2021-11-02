@@ -9,6 +9,7 @@ final class CreatingTokensTests: XCTestCase {
         super.setUp()
         testExpectation = self.expectation(description: "Token")
         SecurionPay.shared.publicKey = SecurionPayAPI.publicKey
+        SecurionPay.shared.bundleIdentifier = "com.securionpay.sdk.SecurionPay"
     }
     
     func testCreatingToken() {

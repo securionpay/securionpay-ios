@@ -67,7 +67,7 @@ final class CheckoutRequestGenerator {
         return encodeRequest(data: request)
     }
     
-    func generateSubscription(planId: String, threeDS: Bool? = nil) -> String {
+    func generateSubscription(planId: String, threeDS: Bool? = nil, rememberMe: Bool? = nil) -> String {
         let threeDSecureData: CheckoutRequestData.ThreeDSecure?
         if let threeDS = threeDS {
             threeDSecureData = CheckoutRequestData.ThreeDSecure(
@@ -83,7 +83,7 @@ final class CheckoutRequestGenerator {
             subscription: CheckoutRequestData.Subscription(planId: planId),
             customCharge: nil,
             threeDSecure: threeDSecureData,
-            rememberMe: nil,
+            rememberMe: rememberMe,
             customerId: nil,
             crossSaleOfferIds: nil,
             termsAndConditionsUrl: nil

@@ -5,9 +5,11 @@ import UIKit
 public final class SecurionPay: NSObject {
     @objc public static let shared = SecurionPay()
     @objc public var publicKey: String?
+    @objc public var bundleIdentifier: String?
     
     private let apiProvider = APIProvider()
     private let authenticator = ThreeDAuthenticator()
+    private var busy = false
     
     private override init() {
         FontsLoader.loadFontsIfNeeded()
@@ -18,6 +20,9 @@ public final class SecurionPay: NSObject {
         checkoutRequest: CheckoutRequest,
         completion: @escaping (PaymentResult?, SecurionPayError?) -> Void) {
             checkIsConfigured()
+            if viewController.navigationController == nil {
+                fatalError("View Controller must be embedded inside UINavigationController. 3D Secure screen needs it to show itself.")
+            }
             
             if !checkoutRequest.correct { completion(nil, .incorrectCheckoutRequest); return }
             if checkoutRequest.termsAndConditions != nil { completion(nil, .unsupportedValue(value: "termsAndConditionsUrl")); return }
@@ -30,7 +35,6 @@ public final class SecurionPay: NSObject {
         }
     
     @objc public func cleanSavedCards() {
-        checkIsConfigured()
         Keychain.cleanSavedEmails()
     }
     
@@ -49,13 +53,29 @@ public final class SecurionPay: NSObject {
         navigationControllerFor3DS: UINavigationController,
         completion: @escaping (Token?, SecurionPayError?) -> Void) {
             checkIsConfigured()
+            guard !busy else {
+                completion(nil, .busy)
+                return
+            }
             
-            authenticator.authenticate(token: token, amount: amount, currency: currency, navigationControllerFor3DS: navigationControllerFor3DS, completion: completion)
+            busy = true
+            authenticator.authenticate(
+                token: token,
+                amount: amount,
+                currency: currency,
+                navigationControllerFor3DS: navigationControllerFor3DS,
+                bundleIdentifier: bundleIdentifier) { [weak self] result, error in
+                    completion(result, error)
+                    self?.busy = false
+                }
         }
     
     private func checkIsConfigured() {
         if (publicKey ?? "").isEmpty {
             fatalError("You must set SecurionPay.shared.publicKey before using SDK.")
+        }
+        if (bundleIdentifier ?? "").isEmpty {
+            fatalError("You must set SecurionPay.shared.bundleIdentifier before using SDK.")
         }
     }
 }

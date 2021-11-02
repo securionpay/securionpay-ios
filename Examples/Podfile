@@ -2,13 +2,15 @@ use_frameworks!
 
 target 'Example' do
    platform :ios, '12.1'
-   pod 'SecurionPay', :path => '..'
+   pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
+   pod 'SecurionPay', :path => '..', :configurations => ['Release']
    pod 'SwiftLint', '0.41.0'
 end
 
 target 'Example ObjC' do
    platform :ios, '12.1'
-   pod 'SecurionPay', :path => '..'
+   pod 'SecurionPayDebug', :path => '..', :configurations => ['Debug']
+   pod 'SecurionPay', :path => '..', :configurations => ['Release']
    pod 'SwiftLint', '0.41.0'
 end
 

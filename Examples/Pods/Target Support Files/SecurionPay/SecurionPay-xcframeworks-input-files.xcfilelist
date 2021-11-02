@@ -1,2 +1,2 @@
 ${PODS_ROOT}/Target Support Files/SecurionPay/SecurionPay-xcframeworks.sh
-${PODS_ROOT}/../../SecurionPay/Frameworks/ipworks3ds_sdk.xcframework
+${PODS_ROOT}/../../SecurionPay/Frameworks/Release/ipworks3ds_sdk.xcframework

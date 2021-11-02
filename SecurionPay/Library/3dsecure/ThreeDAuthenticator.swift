@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-internal class ThreeDAuthenticator {
+internal final class ThreeDAuthenticator {
     private let apiProvider = APIProvider()
     
     @objc public func authenticate(
@@ -9,6 +9,7 @@ internal class ThreeDAuthenticator {
         amount: Int,
         currency: String,
         navigationControllerFor3DS: UINavigationController,
+        bundleIdentifier: String?,
         completion: @escaping (Token?, SecurionPayError?) -> Void) {
             self.apiProvider.threeDSecureCheck(token: token, amount: amount, currency: currency) { [weak self] initResponse, initializationError in
                 guard let self = self else { return }
@@ -20,18 +21,26 @@ internal class ThreeDAuthenticator {
                 }
                 
                 do {
-                    try ThreeDManager.shared.initializeSDK(
+                    let threeDSecureWarnings = try ThreeDManager.shared.initializeSDK(
                         cardBrand: initResponse.token.brand,
                         certificate: initResponse.directoryServerCertificate,
-                        sdkLicense: initResponse.sdkLicense ?? ""
+                        sdkLicense: initResponse.sdkLicense ?? .empty,
+                        bundleIdentifier: bundleIdentifier ?? .empty
                     )
-                    try ThreeDManager.shared.createTransaction(version: initResponse.version, cardBrand: initResponse.token.brand)
-                    guard let authRequestParam = try ThreeDManager.shared.getAuthenticationRequestParameters()?.getAuthRequest() else {
-                        completion(nil, .unknown)
+                    try ThreeDManager.shared.createTransaction(
+                        version: initResponse.version,
+                        cardBrand: initResponse.token.brand
+                    )
+                    guard let authRequestParam = try ThreeDManager.shared.getAuthenticationRequestParameters()?.getAuthRequest(), !authRequestParam.isEmpty else {
+                        if let warning = threeDSecureWarnings.first {
+                            completion(nil, .threeDError(with: warning))
+                        } else {
+                            completion(nil, .unknown3DSecureError)
+                        }
                         return
                     }
-                    try ThreeDManager.shared.showProgressDialog()
                     
+                    try ThreeDManager.shared.showProgressDialog()
                     self.apiProvider.threeDSecureAuthenticate(token: initResponse.token, authenticationParameters: authRequestParam) { [weak self] authenticationResult, authenticationError in
                         guard let self = self else { return }
                         guard let result = authenticationResult else {
@@ -64,14 +73,15 @@ internal class ThreeDAuthenticator {
                                 }
                             } catch {
                                 ThreeDManager.shared.cancelProgressDialog()
-                                completion(nil, .unknown)
+                                completion(nil, .unknown3DSecureError)
                             }
                         }
                     }
                 }
                 catch {
-                    completion(nil, .unknown)
+                    completion(nil, .unknown3DSecureError)
                 }
             }
         }
 }
+

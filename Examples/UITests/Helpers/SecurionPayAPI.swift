@@ -76,8 +76,8 @@ struct Token: Codable {
 final class SecurionPayAPI {
     public static let shared = SecurionPayAPI()
     private let session: URLSession = URLSession(configuration: .default)
-    @objc public static let publicKey = "pk_test_5Es53HxsxAlE4Cy43dzs3ZR4"
-    @objc public static let secretKey = "sk_test_1eOlRNH8cNc1iYh6YFYTbkkg"
+    @objc public static let publicKey = TestConfig.publicKey
+    @objc public static let secretKey = TestConfig.secretKey
     
     private var semaphore = DispatchSemaphore(value: 0)
     

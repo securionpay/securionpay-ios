@@ -1,5 +1,9 @@
 #import "ViewController.h"
+#ifdef DEBUG
+@import SecurionPayDebug;
+#else
 @import SecurionPay;
+#endif
 
 @interface ViewController ()
 @end
@@ -8,6 +12,7 @@
 
 - (IBAction)didTapPaymentButton:(id)sender {
     [SecurionPay shared].publicKey = @"";
+    [SecurionPay shared].bundleIdentifier = @"";
     SPCheckoutRequest *checkoutRequest = [[SPCheckoutRequest alloc] initWithContent:@""];
     [[SecurionPay shared] showCheckoutViewControllerIn:self
                                        checkoutRequest:checkoutRequest

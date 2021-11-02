@@ -12,6 +12,7 @@
 - (void)setUp {
     [super setUp];
     SecurionPay.shared.publicKey = SecurionPayAPI.publicKey;
+    SecurionPay.shared.bundleIdentifier = @"com.securionpay.sdk.SecurionPay";
     self.testExpectation = [self expectationWithDescription:@"Token"];
 }
 

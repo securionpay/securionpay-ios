@@ -36,6 +36,9 @@
 		850C105A2630507D003FDCCB /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850C10592630507D003FDCCB /* CardCollectionViewCell.swift */; };
 		850C106C263059C8003FDCCB /* CardCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850C106B263059C8003FDCCB /* CardCarousel.swift */; };
 		850C107E26305B6C003FDCCB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850C107D26305B6C003FDCCB /* Card.swift */; };
+		85116E27272D9CF000AFF61F /* DebugEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85116E26272D9CF000AFF61F /* DebugEventListener.swift */; };
+		85116E29272D9D3800AFF61F /* DebugSecurityEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85116E28272D9D3800AFF61F /* DebugSecurityEventListener.swift */; };
+		85116E2B272D9D9A00AFF61F /* ThreeDUICustomizationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85116E2A272D9D9A00AFF61F /* ThreeDUICustomizationFactory.swift */; };
 		851C10F12636F521005001B3 /* add_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 851C10EE2636F521005001B3 /* add_card.png */; };
 		851C10F22636F521005001B3 /* add_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 851C10EF2636F521005001B3 /* add_card@2x.png */; };
 		851C10F32636F521005001B3 /* add_card@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 851C10F02636F521005001B3 /* add_card@3x.png */; };
@@ -63,6 +66,7 @@
 		856D29EB2624664700CCE92B /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D29EA2624664700CCE92B /* Style.swift */; };
 		8571C65126BA99BD0089AD07 /* ThreeDSecureInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8571C65026BA99BD0089AD07 /* ThreeDSecureInfo.swift */; };
 		8571C65726BACDD50089AD07 /* ThreeDSecureAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8571C65626BACDD50089AD07 /* ThreeDSecureAuthentication.swift */; };
+		857FCB2F272C936D0059946F /* ipworks3ds_sdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 857FCB2E272C936D0059946F /* ipworks3ds_sdk.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
 		85809F79264173E100EC7D21 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85809F78264173E100EC7D21 /* Phone.swift */; };
 		85809F862641751700EC7D21 /* SMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85809F852641751700EC7D21 /* SMS.swift */; };
 		85809F922642AF0E00EC7D21 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 851C10E22636ECD1005001B3 /* Lato-Bold.ttf */; };
@@ -92,6 +96,7 @@
 		85AE26B026E651D60090404B /* ipworks3ds_ds_visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 85AE26AD26E651D60090404B /* ipworks3ds_ds_visa.png */; };
 		85AE26B126E651D60090404B /* ipworks3ds_ds_visa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85AE26AE26E651D60090404B /* ipworks3ds_ds_visa@2x.png */; };
 		85AE26B326E652070090404B /* ThreeDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AE26B226E652070090404B /* ThreeDManager.swift */; };
+		85B00AA227314DCA00189149 /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B00AA127314DCA00189149 /* TestConfig.swift */; };
 		85DB312B271DA5FA00DA1E2C /* CheckoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DB312A271DA5FA00DA1E2C /* CheckoutManager.swift */; };
 		85DB312D271DB66D00DA1E2C /* CheckoutRequestDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DB312C271DB66D00DA1E2C /* CheckoutRequestDetails.swift */; };
 		85DEA507262467D100EBAFC0 /* UIColor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DEA506262467D100EBAFC0 /* UIColor+String.swift */; };
@@ -114,8 +119,6 @@
 		85DEA582262726BF00EBAFC0 /* maestro.png in Resources */ = {isa = PBXBuildFile; fileRef = 85DEA56D262726BF00EBAFC0 /* maestro.png */; };
 		85DEA583262726BF00EBAFC0 /* maestro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85DEA56E262726BF00EBAFC0 /* maestro@2x.png */; };
 		85DEA5EA2628835200EBAFC0 /* SecurionPay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8543251B25923B79004877D2 /* SecurionPay.framework */; };
-		85ED14112632D233008C399B /* ipworks3ds_sdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85ED13FC2632D1F1008C399B /* ipworks3ds_sdk.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
-		85ED14122632D233008C399B /* ipworks3ds_sdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85ED13FC2632D1F1008C399B /* ipworks3ds_sdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		85EFF6F326550F3300A0C104 /* locker_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85EFF6F026550F3300A0C104 /* locker_dark@2x.png */; };
 		85EFF6F426550F3300A0C104 /* locker_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85EFF6F126550F3300A0C104 /* locker_dark@3x.png */; };
 		85EFF6F526550F3300A0C104 /* locker_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 85EFF6F226550F3300A0C104 /* locker_dark.png */; };
@@ -145,7 +148,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				85ED14122632D233008C399B /* ipworks3ds_sdk.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +186,9 @@
 		850C10592630507D003FDCCB /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		850C106B263059C8003FDCCB /* CardCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCarousel.swift; sourceTree = "<group>"; };
 		850C107D26305B6C003FDCCB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		85116E26272D9CF000AFF61F /* DebugEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugEventListener.swift; sourceTree = "<group>"; };
+		85116E28272D9D3800AFF61F /* DebugSecurityEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSecurityEventListener.swift; sourceTree = "<group>"; };
+		85116E2A272D9D9A00AFF61F /* ThreeDUICustomizationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDUICustomizationFactory.swift; sourceTree = "<group>"; };
 		851C10E12636ECD1005001B3 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		851C10E22636ECD1005001B3 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		851C10E32636ECD1005001B3 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		856D29EA2624664700CCE92B /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		8571C65026BA99BD0089AD07 /* ThreeDSecureInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDSecureInfo.swift; sourceTree = "<group>"; };
 		8571C65626BACDD50089AD07 /* ThreeDSecureAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeDSecureAuthentication.swift; sourceTree = "<group>"; };
+		857FCB2E272C936D0059946F /* ipworks3ds_sdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ipworks3ds_sdk.xcframework; path = Debug/ipworks3ds_sdk.xcframework; sourceTree = "<group>"; };
 		85809F78264173E100EC7D21 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		85809F852641751700EC7D21 /* SMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMS.swift; sourceTree = "<group>"; };
 		85809FA02653DFC800EC7D21 /* SMSCodeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeTextField.swift; sourceTree = "<group>"; };
@@ -240,6 +246,7 @@
 		85AE26AD26E651D60090404B /* ipworks3ds_ds_visa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ipworks3ds_ds_visa.png; sourceTree = "<group>"; };
 		85AE26AE26E651D60090404B /* ipworks3ds_ds_visa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipworks3ds_ds_visa@2x.png"; sourceTree = "<group>"; };
 		85AE26B226E652070090404B /* ThreeDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeDManager.swift; sourceTree = "<group>"; };
+		85B00AA127314DCA00189149 /* TestConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfig.swift; sourceTree = "<group>"; };
 		85C77852269475E600AA3C23 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85C77853269475F000AA3C23 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		85C77854269475FB00AA3C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -282,7 +289,6 @@
 		85DEA59126272EB300EBAFC0 /* CreditCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		85DEA59326272EB300EBAFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85DEA5E52628835200EBAFC0 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		85ED13FC2632D1F1008C399B /* ipworks3ds_sdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk.xcframework; sourceTree = "<group>"; };
 		85EFF6F026550F3300A0C104 /* locker_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locker_dark@2x.png"; sourceTree = "<group>"; };
 		85EFF6F126550F3300A0C104 /* locker_dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locker_dark@3x.png"; sourceTree = "<group>"; };
 		85EFF6F226550F3300A0C104 /* locker_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locker_dark.png; sourceTree = "<group>"; };
@@ -300,7 +306,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85ED14112632D233008C399B /* ipworks3ds_sdk.xcframework in Frameworks */,
+				857FCB2F272C936D0059946F /* ipworks3ds_sdk.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +525,7 @@
 				858A93212629BD9C003586DF /* Helpers */,
 				8596854327297FA100C4BEC2 /* ValidationErrorsTests.swift */,
 				8596854527297FAE00C4BEC2 /* ProcessingErrorsTests.swift */,
+				85B00AA127314DCA00189149 /* TestConfig.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -528,6 +535,9 @@
 			children = (
 				85AE26B226E652070090404B /* ThreeDManager.swift */,
 				8596854E2729EF1400C4BEC2 /* ThreeDAuthenticator.swift */,
+				85116E26272D9CF000AFF61F /* DebugEventListener.swift */,
+				85116E28272D9D3800AFF61F /* DebugSecurityEventListener.swift */,
+				85116E2A272D9D9A00AFF61F /* ThreeDUICustomizationFactory.swift */,
 			);
 			path = 3dsecure;
 			sourceTree = "<group>";
@@ -535,7 +545,7 @@
 		85F22C0C25A4FD8300E4FEE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				85ED13FC2632D1F1008C399B /* ipworks3ds_sdk.xcframework */,
+				857FCB2E272C936D0059946F /* ipworks3ds_sdk.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -792,6 +802,7 @@
 				8596855D272ACABE00C4BEC2 /* ThreeDSecureRequest.swift in Sources */,
 				85EFF7022655187D00A0C104 /* SpinnerSection.swift in Sources */,
 				8596854A2729DEB200C4BEC2 /* APIConfig.swift in Sources */,
+				85116E2B272D9D9A00AFF61F /* ThreeDUICustomizationFactory.swift in Sources */,
 				8564C9F82629E28B0022C3D2 /* UIFont+register.swift in Sources */,
 				85033A1C26382656005C0623 /* SecurionPayTextField.swift in Sources */,
 				85033B38263C278C005C0623 /* Keychain.swift in Sources */,
@@ -809,6 +820,7 @@
 				856D29D926243CB800CCE92B /* Currency.swift in Sources */,
 				85DEA507262467D100EBAFC0 /* UIColor+String.swift in Sources */,
 				85F22B7C25A4F25700E4FEE3 /* UIImage+Bundle.swift in Sources */,
+				85116E27272D9CF000AFF61F /* DebugEventListener.swift in Sources */,
 				8596855B272ACA7A00C4BEC2 /* SendSMSRequest.swift in Sources */,
 				8564C9E42629E2180022C3D2 /* CheckoutRequest.swift in Sources */,
 				8564C9D72629E1E20022C3D2 /* Token.swift in Sources */,
@@ -816,6 +828,7 @@
 				85809FA12653DFC900EC7D21 /* SMSCodeTextField.swift in Sources */,
 				8596855F272ACB0E00C4BEC2 /* ThreeDSecureAuthenticateRequest.swift in Sources */,
 				85F5B53225A8AAD500361899 /* SecurionPayStyle.swift in Sources */,
+				85116E29272D9D3800AFF61F /* DebugSecurityEventListener.swift in Sources */,
 				8564C9DF2629E1F40022C3D2 /* TokenRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -826,6 +839,7 @@
 			files = (
 				858A932D2629BDC5003586DF /* SecurionPayAPI.swift in Sources */,
 				858A931D2629BAD5003586DF /* CreatingTokensTests.swift in Sources */,
+				85B00AA227314DCA00189149 /* TestConfig.swift in Sources */,
 				8596854627297FAE00C4BEC2 /* ProcessingErrorsTests.swift in Sources */,
 				853146D52629D3290031E5A9 /* TestCardNumbers.swift in Sources */,
 				858A934B2629C41E003586DF /* CheckoutRequestGenerator.swift in Sources */,
@@ -1009,7 +1023,6 @@
 		8543252425923B79004877D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1020,9 +1033,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SecurionPay",
-					"$(PROJECT_DIR)/ipworks3ds_sdk.xcframework/**",
 					"$(PROJECT_DIR)/SecurionPay/Frameworks/**",
-					"$(PROJECT_DIR)/SecurionPay/Frameworks/Simulator",
 				);
 				INFOPLIST_FILE = SecurionPay/Library/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1044,7 +1055,6 @@
 		8543252525923B79004877D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1055,9 +1065,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SecurionPay",
-					"$(PROJECT_DIR)/ipworks3ds_sdk.xcframework/**",
 					"$(PROJECT_DIR)/SecurionPay/Frameworks/**",
-					"$(PROJECT_DIR)/SecurionPay/Frameworks/Simulator",
 				);
 				INFOPLIST_FILE = SecurionPay/Library/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

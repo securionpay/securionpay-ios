@@ -1,5 +1,4 @@
 import UIKit
-import SecurionPay
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

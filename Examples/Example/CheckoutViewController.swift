@@ -1,5 +1,9 @@
 import UIKit
+#if canImport(SecurionPayDebug)
+import SecurionPayDebug
+#else
 import SecurionPay
+#endif
 
 final class CheckoutViewController: UIViewController {
     @IBOutlet weak var publicKey: UITextField!
@@ -7,6 +11,7 @@ final class CheckoutViewController: UIViewController {
     
     @IBAction func didTapPaymentButton(_ sender: Any) {
         SecurionPay.shared.publicKey = publicKey.text
+        SecurionPay.shared.bundleIdentifier = "com.securionpay.sdk.SecurionPay.Examples"
         SecurionPay.shared.showCheckoutViewController(
             in: self,
             checkoutRequest: CheckoutRequest(content: checkoutRequest.text!)) { [weak self] result, error in

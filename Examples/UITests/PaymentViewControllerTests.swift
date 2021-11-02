@@ -67,7 +67,7 @@ class CheckoutViewControllerTests: BaseTest {
         page.fillEmail(email: "example.com")
         page.fillCardNumber(number: TestCardNumbers.mastercard)
         page = page.pay()
-        page.assertEmailError(error: "")
+        page.assertEmailError(error: "Invalid e-mail address")
     }
     
     func testFocusSwitching() {
@@ -161,6 +161,81 @@ class CheckoutViewControllerTests: BaseTest {
         XCTAssertEqual(String(TestCardNumbers.mastercard.suffix(4)), charge.card.last4)
         XCTAssertEqual("06", charge.card.expMonth)
         XCTAssertEqual("2026", charge.card.expYear)
+        
+        page = checkoutPage.payment()
+        
+        page.hideKeyboard()
+        checkoutPage = page.close()
+    }
+    
+    func testCardRememberingWithSubscription() {
+        let plan = SecurionPayAPI().createPlan(amount: 10000, currency: "EUR")
+        checkoutPage.typeCheckoutRequest(request: CheckoutRequestGenerator().generateSubscription(planId: plan.id, rememberMe: true))
+        page = checkoutPage.payment()
+        
+        page.assertPaymentButton(title: "Pay €100.00")
+        page.fillEmail(email: "test@example.com")
+        page.fillCardNumber(number: TestCardNumbers.mastercard)
+        page.fillExpiration(month: 6, year: 2026)
+        page.fillCVC(cvc: 123)
+        checkoutPage = page.pay()
+                
+        page = checkoutPage.payment()
+        
+        var charge = SecurionPayAPI().getCharge(with: lastSuccededCharge!)
+        XCTAssertEqual(lastSuccededCharge!, charge.id)
+        XCTAssertEqual(10000, charge.amount)
+        XCTAssertEqual("EUR", charge.currency)
+        XCTAssertEqual(String(TestCardNumbers.mastercard.prefix(6)), charge.card.first6)
+        XCTAssertEqual(String(TestCardNumbers.mastercard.suffix(4)), charge.card.last4)
+        XCTAssertEqual("06", charge.card.expMonth)
+        XCTAssertEqual("2026", charge.card.expYear)
+        XCTAssertEqual(lastSuccededSubscription!, charge.subscriptionId)
+        
+        page.hideKeyboard()
+        
+        page.assertPaymentButton(title: "Pay €100.00")
+        page.fillCardNumber(number: TestCardNumbers.visa)
+        page.fillExpiration(month: 12, year: 2025)
+        page.fillCVC(cvc: 123)
+        page.fillEmail(email: "test2@example.com")
+        page.saveForFurtherUse(save: true)
+        page.hideKeyboard()
+        checkoutPage = page.pay()
+        
+        page = checkoutPage.payment()
+        
+        charge = SecurionPayAPI().getCharge(with: lastSuccededCharge!)
+        XCTAssertEqual(lastSuccededCharge!, charge.id)
+        XCTAssertEqual(10000, charge.amount)
+        XCTAssertEqual("EUR", charge.currency)
+        XCTAssertEqual(String(TestCardNumbers.visa.prefix(6)), charge.card.first6)
+        XCTAssertEqual(String(TestCardNumbers.visa.suffix(4)), charge.card.last4)
+        XCTAssertEqual("12", charge.card.expMonth)
+        XCTAssertEqual("2025", charge.card.expYear)
+        XCTAssertEqual(lastSuccededSubscription!, charge.subscriptionId)
+        
+        page.hideKeyboard()
+        
+        page.fillEmail(email: "test2@example.com", newline: false)
+        page.hideKeyboard()
+        
+        page.fillEmail(email: "TEST@example.com", newline: false)
+        page.hideKeyboard()
+        page.fillCVC(cvc: 123)
+
+        checkoutPage = page.pay()
+        checkoutPage.clearSavedCards()
+        
+        charge = SecurionPayAPI().getCharge(with: lastSuccededCharge!)
+        XCTAssertEqual(lastSuccededCharge!, charge.id)
+        XCTAssertEqual(10000, charge.amount)
+        XCTAssertEqual("EUR", charge.currency)
+        XCTAssertEqual(String(TestCardNumbers.mastercard.prefix(6)), charge.card.first6)
+        XCTAssertEqual(String(TestCardNumbers.mastercard.suffix(4)), charge.card.last4)
+        XCTAssertEqual("06", charge.card.expMonth)
+        XCTAssertEqual("2026", charge.card.expYear)
+        XCTAssertEqual(lastSuccededSubscription!, charge.subscriptionId)
         
         page = checkoutPage.payment()
         

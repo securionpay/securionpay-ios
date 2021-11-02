@@ -91,7 +91,7 @@ final internal class APIProvider {
         performAPICall(method: .POST, endpoint: .API, path: "3d-secure/v2/challenge-complete", request: request, completion: completion)
     }
     
-    private func performAPICall<Request: Encodable, Response: Decodable>(
+    private func performAPICall<Request: Encodable, Response: Codable>(
         method: Method,
         endpoint: Endpoint,
         path: String,
@@ -125,7 +125,7 @@ final internal class APIProvider {
             let task = self.session.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 DispatchQueue.main.async {
                     if let _ = error {
-                        completion(nil, .unknown)
+                        completion(nil, SecurionPayError(type: .unknown, code: .unknown, message: "ab"))
                     } else if let data = data {
                         let decoder = JSONDecoder()
                         if let decodedError = try? decoder.decode(GatewayErrorResponse.self, from: data) {
@@ -137,7 +137,7 @@ final internal class APIProvider {
                         } else if let decodedToken = try? decoder.decode(Response.self, from: data) {
                             completion(decodedToken, nil)
                         } else {
-                            completion(nil, .unknown)
+                            completion(nil, SecurionPayError(type: .unknown, code: .unknown, message: String(data: data, encoding: .utf8) ?? ""))
                         }
                     }
                 }
@@ -145,7 +145,7 @@ final internal class APIProvider {
             
             task.resume()
         }
-    
+        
     private struct APIErrorResponse: Codable {
         let error: SecurionPayError
         

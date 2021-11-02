@@ -4,13 +4,16 @@ import Foundation
 
 final class ValidationErrorsTests: XCTestCase {
     private var testExpectation: XCTestExpectation?
+    private var checkoutManager: CheckoutManager!
     private var navController: UINavigationController!
     
     override func setUp() {
         super.setUp()
         testExpectation = self.expectation(description: "Token")
         navController = UINavigationController(rootViewController: UIViewController())
+        checkoutManager = CheckoutManager()
         SecurionPay.shared.publicKey = SecurionPayAPI.publicKey
+        SecurionPay.shared.bundleIdentifier = "com.securionpay.sdk.SecurionPay"
     }
     
     func testCreatingTokenWithInvalidCardNumber() {
@@ -86,7 +89,7 @@ final class ValidationErrorsTests: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.invalidNumber, error?.code)
             XCTAssertEqual(.cardError, error?.type)
@@ -102,7 +105,7 @@ final class ValidationErrorsTests: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.invalidExpiryMonth, error?.code)
             XCTAssertEqual(.cardError, error?.type)
@@ -118,7 +121,7 @@ final class ValidationErrorsTests: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.invalidExpiryYear, error?.code)
             XCTAssertEqual(.cardError, error?.type)
@@ -134,7 +137,7 @@ final class ValidationErrorsTests: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.invalidCVC, error?.code)
             XCTAssertEqual(.cardError, error?.type)
@@ -150,7 +153,7 @@ final class ValidationErrorsTests: XCTestCase {
         let checkoutRequest = CheckoutRequestGenerator().generate()
         let email = "test123@email.com"
 
-        CheckoutManager.shared.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
+        checkoutManager.pay(tokenRequest: tokenRequest, checkoutRequest: checkoutRequest, email: email, navigationControllerFor3DS: navController) { (result, error) in
             XCTAssertNil(result)
             XCTAssertEqual(.expiredCard, error?.code)
             XCTAssertEqual(.cardError, error?.type)

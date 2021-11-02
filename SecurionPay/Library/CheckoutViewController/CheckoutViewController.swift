@@ -66,6 +66,7 @@ final class CheckoutViewController: UIViewController {
     private var subscription: CompleteSubscription?
     private let haptic = UINotificationFeedbackGenerator()
     private var keyboardVisible = false
+    private let checkoutManager = CheckoutManager()
     
     init(checkoutRequest: CheckoutRequest, completion: @escaping (PaymentResult?, SecurionPayError?) -> Void) {
         self.checkoutRequest = checkoutRequest
@@ -141,11 +142,18 @@ final class CheckoutViewController: UIViewController {
     
     private func getCheckoutData() {
         showSpinner(hideButton: true)
-        CheckoutManager.shared.checkoutRequestDetails(checkoutRequest: checkoutRequest) { details, error in
-            self.subscription = details?.subscription
-            self.hideSpinner()
-            self.switchMode(to: .newCard)
-            self.lookupIfNeeded()
+        checkoutManager.checkoutRequestDetails(checkoutRequest: checkoutRequest) { details, error in
+            if let details = details {
+                self.subscription = details.subscription
+                self.hideSpinner()
+                self.switchMode(to: .newCard)
+                self.lookupIfNeeded()
+            } else {
+                DispatchQueue.main.async {
+                    self.completion(nil, .unknown)
+                }
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -204,13 +212,13 @@ final class CheckoutViewController: UIViewController {
         
         showSpinner(hideButton: false)
         
-        CheckoutManager.shared.lookup(email: email) { [weak self] lookupResult, error in
+        checkoutManager.lookup(email: email) { [weak self] lookupResult, error in
             guard let self = self else { return }
             self.button.changeState(to: .normal)
             self.email.text = email
             if let lookupResult = lookupResult {
                 if let phone = lookupResult.phone {
-                    CheckoutManager.shared.sendSMS(email: email) { [weak self] sms, error in
+                    self.checkoutManager.sendSMS(email: email) { [weak self] sms, error in
                         guard let self = self else { return }
                         self.setTextFieldsEnabled(true)
                         if let sms = sms {
@@ -307,11 +315,23 @@ final class CheckoutViewController: UIViewController {
                         self.emailContainer.layer.borderColor = Style.Color.error.cgColor
                         self.stack.setCustomSpacing(4, after: self.emailContainer)
                     }
+                } else if error.type == .threeDSecure {
+                    DispatchQueue.main.async {
+                        self.completion(result, error)
+                    }
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     self.showError(error: error)
                 }
             } else {
-                self.showError(error: error)
+                if error.type == .threeDSecure {
+                    DispatchQueue.main.async {
+                        self.completion(result, error)
+                    }
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.showError(error: error)
+                }
             }
         } else if let result = result {
             self.button.changeState(to: .finished)
@@ -368,11 +388,11 @@ final class CheckoutViewController: UIViewController {
         button.changeState(to: .pending)
         
         if let savedEmail = savedEmail {
-            CheckoutManager.shared.savedToken(email: savedEmail) { [weak self] token, error in
+            checkoutManager.savedToken(email: savedEmail) { [weak self] token, error in
                 guard let self = self else { return }
                 
                 if let token = token {
-                    CheckoutManager.shared.pay(
+                    self.checkoutManager.pay(
                         token: token,
                         checkoutRequest: self.checkoutRequest,
                         email: savedEmail,
@@ -396,7 +416,7 @@ final class CheckoutViewController: UIViewController {
             }
             return
         }
-        CheckoutManager.shared.pay(
+        checkoutManager.pay(
             tokenRequest: tokenRequest,
             checkoutRequest: checkoutRequest,
             email: email.text!,
@@ -418,7 +438,7 @@ final class CheckoutViewController: UIViewController {
         guard code.count == 6 else { return }
         guard let lastSMS = lastSMS else { return }
         
-        CheckoutManager.shared.verifySMS(code: code, sms: lastSMS) { [weak self] response, error in
+        checkoutManager.verifySMS(code: code, sms: lastSMS) { [weak self] response, error in
             guard let self = self else { return }
             if let card = response?.card {
                 self.currentCard = CreditCard(card: card)
@@ -504,9 +524,9 @@ final class CheckoutViewController: UIViewController {
         case .getCheckoutDetails:
             break
         case .donation:
-            titleLabel.text = String.localized("select_amount")
+            titleLabel.text = .localized("select_amount")
         case .newCard:
-            titleLabel.text = String.localized("add_payment")
+            titleLabel.text = .localized("add_payment")
             stackTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapGesture))
             stack.addGestureRecognizer(stackTapGestureRecognizer)
             self.stack.setCustomSpacing(32, after: self.emailContainer)
@@ -523,7 +543,7 @@ final class CheckoutViewController: UIViewController {
             updateButtonStatus()
             setRememberSwitchActiveMode(mode: savedEmail == nil)
         case .sms:
-            titleLabel.text = String.localized("add_payment")
+            titleLabel.text = .localized("add_payment")
             view.endEditing(true)
             smsCode.clear()
             stack.removeGestureRecognizer(stackTapGestureRecognizer)
@@ -682,14 +702,14 @@ extension CheckoutViewController {
     }
     
     private func setupEmailContainer() {
-        email.placeholder = String.localized("email")
+        email.placeholder = .localized("email")
         email.delegate = self
         email.keyboardType = .emailAddress
         email.autocapitalizationType = .none
         
         emailInfoLabel.textColor = .black
         emailInfoLabel.font = Style.Font.section
-        emailInfoLabel.text = String.localized("user_information")
+        emailInfoLabel.text = .localized("user_information")
         
         emailContainer.axis = .horizontal
         emailContainer.addArrangedSubview(email)
@@ -713,21 +733,21 @@ extension CheckoutViewController {
         cardError.numberOfLines = 0
         cardError.accessibilityIdentifier = AccessibilityIdentifier.PaymentViewController.cardErrorLabel
         
-        cardNumber.placeholder = String.localized("card_number")
+        cardNumber.placeholder = .localized("card_number")
         cardNumber.rightImage = UIImage.fromBundle(named: "unknown")
         cardNumber.delegate = self
         cardNumber.keyboardType = .numberPad
-        expiration.placeholder = String.localized("expiration")
+        expiration.placeholder = .localized("expiration")
         expiration.delegate = self
         expiration.keyboardType = .numberPad
-        cvc.placeholder = String.localized("cvc")
+        cvc.placeholder = .localized("cvc")
         cvc.rightImage = UIImage.fromBundle(named: "cvc")
         cvc.delegate = self
         cvc.keyboardType = .numberPad
         
         cardContainerLabel.textColor = .black
         cardContainerLabel.font = Style.Font.section
-        cardContainerLabel.text = String.localized("card_information")
+        cardContainerLabel.text = .localized("card_information")
         
         horizontalStack.addArrangedSubview(expiration)
         horizontalStack.addArrangedSubview(cvc)
@@ -760,15 +780,16 @@ extension CheckoutViewController {
         smsInfoImage.isHidden = true
         smsInfoImage.contentMode = .center
         smsInfoTitle.font = Style.Font.section
-        smsInfoTitle.text = String.localized("unlock_card_details")
+        smsInfoTitle.text = .localized("unlock_card_details")
         smsInfoTitle.textAlignment = .center
         smsInfoTitle.isHidden = true
+        smsInfoTitle.textColor = .black
         smsInfo.textColor = Style.Color.gray
         smsInfo.font = Style.Font.body
         smsInfo.textAlignment = .center
         smsInfo.isHidden = true
         smsInfo.numberOfLines = 0
-        smsInfo.text = String.localized("sms_code_info")
+        smsInfo.text = .localized("sms_code_info")
     }
     
     private func setupsmsCode() {

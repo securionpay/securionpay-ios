@@ -9,8 +9,14 @@ extension Bundle {
         }
         #endif
         
-        let url = Bundle(for: SecurionPay.self).url(forResource: "SecurionPayBundle", withExtension: "bundle")!
-        return Bundle(url: url)!
+        let mainBundle = Bundle(for: SecurionPay.self)
+        if let debugBundle = mainBundle.url(forResource: "SecurionPayDebugBundle", withExtension: "bundle") {
+            return Bundle(url: debugBundle)!
+        } else if let releaseBundle = mainBundle.url(forResource: "SecurionPayReleaseBundle", withExtension: "bundle") {
+            return Bundle(url: releaseBundle)!
+        } else {
+            return mainBundle
+        }
     }
 }
 

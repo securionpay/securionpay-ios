@@ -1,6 +1,10 @@
 import Foundation
 import UIKit
+#if DEBUG
+import SecurionPayDebug
+#else
 import SecurionPay
+#endif
 
 final class CustomFormViewController: UIViewController {
     @IBOutlet weak var key: UITextField!
@@ -11,6 +15,7 @@ final class CustomFormViewController: UIViewController {
     
     @IBAction func didTapPaymentButton(_ sender: Any) {
         SecurionPay.shared.publicKey = key.text
+        SecurionPay.shared.bundleIdentifier = "com.securionpay.sdk.SecurionPay.Examples"
         
         let tokenRequest = TokenRequest(number: cardNumber.text!, expirationMonth: month.text!, expirationYear: year.text!, cvc: cvc.text!)
         SecurionPay.shared.createToken(with: tokenRequest) { [weak self] token, error in
@@ -23,6 +28,10 @@ final class CustomFormViewController: UIViewController {
             SecurionPay.shared.authenticate(token: token, amount: 10000, currency: "EUR", navigationControllerFor3DS: navController) { [weak self] authenticatedToken, error in
                 if let authenticatedToken = authenticatedToken {
                     let alert = UIAlertController(title: "Payment and 3DS finished!", message: "Token id: \(authenticatedToken.id)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                } else if let error = error {
+                    let alert = UIAlertController(title: "Error!", message: error.localizedMessage(), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self?.present(alert, animated: true, completion: nil)
                 }

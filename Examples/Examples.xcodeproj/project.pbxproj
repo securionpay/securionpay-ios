@@ -40,6 +40,7 @@
 		8585DB622636E88F0018E3EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8585DB612636E88F0018E3EF /* Assets.xcassets */; };
 		8585DB652636E88F0018E3EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8585DB632636E88F0018E3EF /* LaunchScreen.storyboard */; };
 		8596854C2729E23A00C4BEC2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596854B2729E23A00C4BEC2 /* APIConfig.swift */; };
+		85B00AA427314E7800189149 /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B00AA327314E7800189149 /* TestConfig.swift */; };
 		85B2ED2A26F88DB700F9210D /* ThreeDSecureCheckoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2ED2926F88DB700F9210D /* ThreeDSecureCheckoutTests.swift */; };
 		85B2ED2C26F8AF8F00F9210D /* ThreeDPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2ED2B26F8AF8F00F9210D /* ThreeDPage.swift */; };
 		85B2ED2E26F8D58700F9210D /* CheckoutRequestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2ED2D26F8D58700F9210D /* CheckoutRequestGenerator.swift */; };
@@ -108,6 +109,7 @@
 		8585DB642636E88F0018E3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8585DB662636E88F0018E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8596854B2729E23A00C4BEC2 /* APIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIConfig.swift; path = ../../SecurionPay/Library/APIConfig.swift; sourceTree = "<group>"; };
+		85B00AA327314E7800189149 /* TestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestConfig.swift; path = ../../UnitTests/TestConfig.swift; sourceTree = "<group>"; };
 		85B2ED2926F88DB700F9210D /* ThreeDSecureCheckoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDSecureCheckoutTests.swift; sourceTree = "<group>"; };
 		85B2ED2B26F8AF8F00F9210D /* ThreeDPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDPage.swift; sourceTree = "<group>"; };
 		85B2ED2D26F8D58700F9210D /* CheckoutRequestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutRequestGenerator.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		851C10A52636EA21005001B3 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				85B00AA327314E7800189149 /* TestConfig.swift */,
 				8596854B2729E23A00C4BEC2 /* APIConfig.swift */,
 				851C10BF2636EA64005001B3 /* Helpers */,
 				851C10CC2636EA64005001B3 /* Pages */,
@@ -546,6 +549,7 @@
 				851C10DC2636EA64005001B3 /* PaymentViewControllerTests.swift in Sources */,
 				853F22C22715E5D200D34A3C /* CustomFormPage.swift in Sources */,
 				8596854C2729E23A00C4BEC2 /* APIConfig.swift in Sources */,
+				85B00AA427314E7800189149 /* TestConfig.swift in Sources */,
 				851C10DB2636EA64005001B3 /* PaymentViewControllerPage.swift in Sources */,
 				851C10D52636EA64005001B3 /* SnapshotTestHelperConfig.swift in Sources */,
 				853F22C02715E32200D34A3C /* ThreeDSecureCustomFormTests.swift in Sources */,
@@ -842,7 +846,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = BD8CL6WACS;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -855,7 +859,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -867,7 +871,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = BD8CL6WACS;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -880,7 +884,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

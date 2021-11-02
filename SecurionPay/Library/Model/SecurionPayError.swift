@@ -1,7 +1,8 @@
 import Foundation
+import ipworks3ds_sdk
 
 @objc(SPError)
-public class SecurionPayError: NSObject, Codable {
+public final class SecurionPayError: NSObject, Codable {
     public enum ErrorType: String, Codable {
         case invalidRequest = "invalid_request"
         case cardError = "card_error"
@@ -9,8 +10,8 @@ public class SecurionPayError: NSObject, Codable {
         case invalidVerificationCode = "invalid-verification-code"
         
         case unknown
-        case unsupportedValue
-        case incorrectCheckoutRequest
+        case sdk
+        case threeDSecure
         
         public init(from decoder: Decoder) throws {
             self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
@@ -33,12 +34,20 @@ public class SecurionPayError: NSObject, Codable {
         case blacklisted = "blacklisted"
         case expiredToken = "expired_token"
         case limitExcedeed = "limit_exceeded"
-        case invalidVerificationCode = "invalid-verification-code"
+        case invalidVerificationCode = "verification_code_invalid"
         case verificationCodeRequired = "verification-code-required"
         case enrolledCardIsRequired = "enrolledCardIsRequired"
         case successfulLiabilityShiftIsRequired = "successfulLiabilityShiftIsRequired"
         case authenticationRequired = "authentication_required"
         case invalidEmail = "invalid_email"
+        case unsupportedValue
+        case incorrectCheckoutRequest
+        case deviceJailbroken
+        case integrityTampered
+        case simulator
+        case osNotSupported
+        
+        case anotherOperation
         
         case unknown
         
@@ -63,30 +72,48 @@ public class SecurionPayError: NSObject, Codable {
         }
     }
     
-    init(error: Error) {
+    internal init(error: Error) {
         type = .unknown
         code = nil
         message = error.localizedDescription
     }
     
-    static var unknown: SecurionPayError {
-        SecurionPayError(type: .unknown, code: nil, message: String.localized("unknown_error"))
+    static internal var unknown: SecurionPayError {
+        SecurionPayError(type: .unknown, code: nil, message: .localized("unknown_error"))
     }
     
-    static func unsupportedValue(value: String) -> SecurionPayError {
-        SecurionPayError(type: .unsupportedValue, code: nil, message: "Unsupported value: \(value)")
+    static internal var unknown3DSecureError: SecurionPayError {
+        SecurionPayError(type: .threeDSecure, code: .unknown, message: "Unknown 3D Secure Error. Check your SDK integration.")
     }
     
-    static var incorrectCheckoutRequest: SecurionPayError {
-        SecurionPayError(type: .incorrectCheckoutRequest, code: nil, message: "Incorrect checkout request")
+    static internal func unsupportedValue(value: String) -> SecurionPayError {
+        SecurionPayError(type: .sdk, code: .unsupportedValue, message: "Unsupported value: \(value)")
     }
     
-    static var enrolledCardIsRequired: SecurionPayError {
+    static internal var incorrectCheckoutRequest: SecurionPayError {
+        SecurionPayError(type: .sdk, code: .incorrectCheckoutRequest, message: "Incorrect checkout request")
+    }
+    
+    static internal var enrolledCardIsRequired: SecurionPayError {
         SecurionPayError(type: .invalidRequest, code: .enrolledCardIsRequired, message: "The charge requires cardholder authentication.")
     }
     
-    static var successfulLiabilityShiftIsRequired: SecurionPayError {
+    static internal var successfulLiabilityShiftIsRequired: SecurionPayError {
         SecurionPayError(type: .invalidRequest, code: .successfulLiabilityShiftIsRequired, message: "The charge requires cardholder authentication.")
+    }
+    
+    static internal func threeDError(with warning: Warning) -> SecurionPayError {
+        switch (warning.getID()) {
+        case "SW01": return SecurionPayError(type:.threeDSecure, code: .deviceJailbroken, message: warning.getMessage())
+        case "SW02": return SecurionPayError(type:.threeDSecure, code: .integrityTampered, message: warning.getMessage())
+        case "SW03": return SecurionPayError(type:.threeDSecure, code: .simulator, message: warning.getMessage())
+        case "SW05": return SecurionPayError(type:.threeDSecure, code: .osNotSupported, message: warning.getMessage())
+        default: return SecurionPayError(type:.threeDSecure, code: .unknown, message: warning.getMessage())
+        }
+    }
+    
+    static internal var busy: SecurionPayError {
+        SecurionPayError(type: .sdk, code: .anotherOperation, message: "Another task is in progress.")
     }
     
     @objc public func localizedMessage() -> String {
