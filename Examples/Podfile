@@ -13,9 +13,3 @@ target 'Example ObjC' do
    pod 'SecurionPay', :path => '..', :configurations => ['Release']
    pod 'SwiftLint', '0.41.0'
 end
-
-target 'UITests' do
-   platform :ios, '13'
-   inherit! :search_paths
-   pod 'SnapshotTesting', '~> 1.8.1'
-end

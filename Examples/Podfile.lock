@@ -1,22 +1,19 @@
 PODS:
-  - SecurionPay (1.0.0):
-    - SecurionPay/Resources (= 1.0.0)
-  - SecurionPay/Resources (1.0.0)
-  - SecurionPayDebug (1.0.0):
-    - SecurionPayDebug/Resources (= 1.0.0)
-  - SecurionPayDebug/Resources (1.0.0)
-  - SnapshotTesting (1.8.2)
+  - SecurionPay (1.0.1):
+    - SecurionPay/Resources (= 1.0.1)
+  - SecurionPay/Resources (1.0.1)
+  - SecurionPayDebug (1.0.1):
+    - SecurionPayDebug/Resources (= 1.0.1)
+  - SecurionPayDebug/Resources (1.0.1)
   - SwiftLint (0.41.0)
 
 DEPENDENCIES:
   - SecurionPay (from `..`)
   - SecurionPayDebug (from `..`)
-  - SnapshotTesting (~> 1.8.1)
   - SwiftLint (= 0.41.0)
 
 SPEC REPOS:
   trunk:
-    - SnapshotTesting
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -26,11 +23,10 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  SecurionPay: 2659d8e5cece54562e6faed9a654a00e824504ec
-  SecurionPayDebug: dd0fee6b87b5fc05ea2a8554b9a8a3eeccb0d0be
-  SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
+  SecurionPay: e897efe38547ee3b92d8fc50abaf4c5f9421b825
+  SecurionPayDebug: a055811b9f2897bfec6cce34214ba978a90204d3
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
-PODFILE CHECKSUM: d264b9e5b4afd33c73f882c3bb37cfb10c3bd8ae
+PODFILE CHECKSUM: 01303d9f26a92a9671cc84f54962746ab57d3c62
 
 COCOAPODS: 1.11.2
