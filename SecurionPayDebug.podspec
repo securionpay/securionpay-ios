@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "SecurionPayDebug"
-  s.version       = "1.0.1"
+  s.version       = "1.0.3"
   s.summary       = "iOS SDK for SecurionPay"
   s.description   = "Framework makes it easy to add SecurionPay payments to your mobile apps."
   s.homepage      = "https://github.com/securionpay/securionpay-ios.git"
