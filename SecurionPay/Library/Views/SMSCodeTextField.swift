@@ -52,6 +52,7 @@ final class SMSCodeTextField: UIView {
     }
     
     private func commonInit() {
+        textField.accessibilityIdentifier = AccessibilityIdentifier.PaymentViewController.sms
         fields.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.addConstraints([

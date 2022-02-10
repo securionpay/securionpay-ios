@@ -35,7 +35,7 @@ public final class SecurionPayError: NSObject, Codable {
         case expiredToken = "expired_token"
         case limitExcedeed = "limit_exceeded"
         case invalidVerificationCode = "verification_code_invalid"
-        case verificationCodeRequired = "verification-code-required"
+        case verificationCodeRequired = "verification_code_required"
         case enrolledCardIsRequired = "enrolledCardIsRequired"
         case successfulLiabilityShiftIsRequired = "successfulLiabilityShiftIsRequired"
         case authenticationRequired = "authentication_required"

@@ -264,6 +264,18 @@ typedef SWIFT_ENUM(NSInteger, ButtonType, open) {
 };
 
 
+SWIFT_CLASS("_TtC14ipworks3ds_sdk14CGSizeSequence")
+@interface CGSizeSequence : NSObject <ImageSlideSetAcsRefNumber>
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)closeUsingFont:(NSData * _Null_unspecified)dataPacket;
+- (void)getnameinfoIssuerImageString:(NSData * _Null_unspecified)dataPacket;
+- (void)isMSHookedStringObfuscationTest:(int32_t)errorCode :(NSString * _Null_unspecified)description;
+- (void)pointerGetChallengeStatusReceiver:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
+- (void)appVersionKeyAbsoluteString:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
+- (void)directoryServerInfoListSetAcsRefNumber:(NSString * _Null_unspecified)message;
+@end
+
+
 SWIFT_CLASS("_TtC14ipworks3ds_sdk19ChallengeParameters")
 @interface ChallengeParameters : NSObject
 - (nonnull instancetype)initWithThreeDSServerAuthResponse:(NSString * _Nonnull)threeDSServerAuthResponse OBJC_DESIGNATED_INITIALIZER;
@@ -356,23 +368,11 @@ SWIFT_CLASS("_TtC14ipworks3ds_sdk12ErrorMessage")
 @end
 
 
-SWIFT_CLASS("_TtC14ipworks3ds_sdk52ExpandableInformationTextCreateProgressDialogForAReq")
-@interface ExpandableInformationTextCreateProgressDialogForAReq : NSObject
-+ (void)sdkAppIdKeyDenyDebugger;
-+ (void)setupClientComponentUIImageView;
+SWIFT_CLASS("_TtC14ipworks3ds_sdk28GetDefaultDSCAIndirectSymbol")
+@interface GetDefaultDSCAIndirectSymbol : NSObject
++ (void)transactionStatusStubCodeLength;
++ (void)threeDSServerTransactionIDWhitelistingInformationText;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC14ipworks3ds_sdk19ImmhiMaskBlurEffect")
-@interface ImmhiMaskBlurEffect : NSObject <ForegroundColorParamValues>
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)cmdsizeContains:(NSData * _Null_unspecified)dataPacket;
-- (void)internalCompletionEvent:(NSData * _Null_unspecified)dataPacket;
-- (void)onViewVersion:(int32_t)errorCode :(NSString * _Null_unspecified)description;
-- (void)getMessageVersionDeviceParamsCollector:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
-- (void)writeMarkHooked:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
-- (void)lenghtCertArray:(NSString * _Null_unspecified)message;
 @end
 
 enum LabelType : NSInteger;
@@ -875,6 +875,18 @@ typedef SWIFT_ENUM(NSInteger, ButtonType, open) {
 };
 
 
+SWIFT_CLASS("_TtC14ipworks3ds_sdk14CGSizeSequence")
+@interface CGSizeSequence : NSObject <ImageSlideSetAcsRefNumber>
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)closeUsingFont:(NSData * _Null_unspecified)dataPacket;
+- (void)getnameinfoIssuerImageString:(NSData * _Null_unspecified)dataPacket;
+- (void)isMSHookedStringObfuscationTest:(int32_t)errorCode :(NSString * _Null_unspecified)description;
+- (void)pointerGetChallengeStatusReceiver:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
+- (void)appVersionKeyAbsoluteString:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
+- (void)directoryServerInfoListSetAcsRefNumber:(NSString * _Null_unspecified)message;
+@end
+
+
 SWIFT_CLASS("_TtC14ipworks3ds_sdk19ChallengeParameters")
 @interface ChallengeParameters : NSObject
 - (nonnull instancetype)initWithThreeDSServerAuthResponse:(NSString * _Nonnull)threeDSServerAuthResponse OBJC_DESIGNATED_INITIALIZER;
@@ -967,23 +979,11 @@ SWIFT_CLASS("_TtC14ipworks3ds_sdk12ErrorMessage")
 @end
 
 
-SWIFT_CLASS("_TtC14ipworks3ds_sdk52ExpandableInformationTextCreateProgressDialogForAReq")
-@interface ExpandableInformationTextCreateProgressDialogForAReq : NSObject
-+ (void)sdkAppIdKeyDenyDebugger;
-+ (void)setupClientComponentUIImageView;
+SWIFT_CLASS("_TtC14ipworks3ds_sdk28GetDefaultDSCAIndirectSymbol")
+@interface GetDefaultDSCAIndirectSymbol : NSObject
++ (void)transactionStatusStubCodeLength;
++ (void)threeDSServerTransactionIDWhitelistingInformationText;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC14ipworks3ds_sdk19ImmhiMaskBlurEffect")
-@interface ImmhiMaskBlurEffect : NSObject <ForegroundColorParamValues>
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)cmdsizeContains:(NSData * _Null_unspecified)dataPacket;
-- (void)internalCompletionEvent:(NSData * _Null_unspecified)dataPacket;
-- (void)onViewVersion:(int32_t)errorCode :(NSString * _Null_unspecified)description;
-- (void)getMessageVersionDeviceParamsCollector:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
-- (void)writeMarkHooked:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
-- (void)lenghtCertArray:(NSString * _Null_unspecified)message;
 @end
 
 enum LabelType : NSInteger;
@@ -1486,6 +1486,18 @@ typedef SWIFT_ENUM(NSInteger, ButtonType, open) {
 };
 
 
+SWIFT_CLASS("_TtC14ipworks3ds_sdk14CGSizeSequence")
+@interface CGSizeSequence : NSObject <ImageSlideSetAcsRefNumber>
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)closeUsingFont:(NSData * _Null_unspecified)dataPacket;
+- (void)getnameinfoIssuerImageString:(NSData * _Null_unspecified)dataPacket;
+- (void)isMSHookedStringObfuscationTest:(int32_t)errorCode :(NSString * _Null_unspecified)description;
+- (void)pointerGetChallengeStatusReceiver:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
+- (void)appVersionKeyAbsoluteString:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
+- (void)directoryServerInfoListSetAcsRefNumber:(NSString * _Null_unspecified)message;
+@end
+
+
 SWIFT_CLASS("_TtC14ipworks3ds_sdk19ChallengeParameters")
 @interface ChallengeParameters : NSObject
 - (nonnull instancetype)initWithThreeDSServerAuthResponse:(NSString * _Nonnull)threeDSServerAuthResponse OBJC_DESIGNATED_INITIALIZER;
@@ -1578,23 +1590,11 @@ SWIFT_CLASS("_TtC14ipworks3ds_sdk12ErrorMessage")
 @end
 
 
-SWIFT_CLASS("_TtC14ipworks3ds_sdk52ExpandableInformationTextCreateProgressDialogForAReq")
-@interface ExpandableInformationTextCreateProgressDialogForAReq : NSObject
-+ (void)sdkAppIdKeyDenyDebugger;
-+ (void)setupClientComponentUIImageView;
+SWIFT_CLASS("_TtC14ipworks3ds_sdk28GetDefaultDSCAIndirectSymbol")
+@interface GetDefaultDSCAIndirectSymbol : NSObject
++ (void)transactionStatusStubCodeLength;
++ (void)threeDSServerTransactionIDWhitelistingInformationText;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC14ipworks3ds_sdk19ImmhiMaskBlurEffect")
-@interface ImmhiMaskBlurEffect : NSObject <ForegroundColorParamValues>
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)cmdsizeContains:(NSData * _Null_unspecified)dataPacket;
-- (void)internalCompletionEvent:(NSData * _Null_unspecified)dataPacket;
-- (void)onViewVersion:(int32_t)errorCode :(NSString * _Null_unspecified)description;
-- (void)getMessageVersionDeviceParamsCollector:(int32_t)logLevel :(NSString * _Null_unspecified)message :(NSString * _Null_unspecified)logType;
-- (void)writeMarkHooked:(NSData * _Null_unspecified)certEncoded :(NSString * _Null_unspecified)certSubject :(NSString * _Null_unspecified)certIssuer :(NSString * _Null_unspecified)status :(int32_t * _Nonnull)accept;
-- (void)lenghtCertArray:(NSString * _Null_unspecified)message;
 @end
 
 enum LabelType : NSInteger;

@@ -125,7 +125,7 @@ final internal class APIProvider {
             let task = self.session.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 DispatchQueue.main.async {
                     if let _ = error {
-                        completion(nil, SecurionPayError(type: .unknown, code: .unknown, message: "ab"))
+                        completion(nil, .unknown)
                     } else if let data = data {
                         let decoder = JSONDecoder()
                         if let decodedError = try? decoder.decode(GatewayErrorResponse.self, from: data) {
@@ -134,10 +134,14 @@ final internal class APIProvider {
                             completion(nil, decodedAPIError.toSecurionPayError())
                         } else if let simpleError = try? decoder.decode(SimpleAPIErrorResponse.self, from: data) {
                             completion(nil, simpleError.toSecurionPayError())
-                        } else if let decodedToken = try? decoder.decode(Response.self, from: data) {
-                            completion(decodedToken, nil)
                         } else {
-                            completion(nil, SecurionPayError(type: .unknown, code: .unknown, message: String(data: data, encoding: .utf8) ?? ""))
+                            do {
+                                let decodedToken = try decoder.decode(Response.self, from: data)
+                                completion(decodedToken, nil)
+                            } catch {
+                                
+                                completion(nil, .unknown)
+                            }
                         }
                     }
                 }

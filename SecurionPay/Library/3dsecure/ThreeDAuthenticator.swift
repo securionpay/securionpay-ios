@@ -50,7 +50,7 @@ internal final class ThreeDAuthenticator {
                         }
                         
                         switch (result.ares.transStatus) {
-                        case .correct, .incorrect:
+                        case .correct, .incorrect, .attemptPerformed, .technicalProblem, .rejected, .unknown:
                             self.apiProvider.threeDSecureComplete(token: initResponse.token) { securedToken, _ in
                                 ThreeDManager.shared.cancelProgressDialog();
                                 completion(securedToken, nil)

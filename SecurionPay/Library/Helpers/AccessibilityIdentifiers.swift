@@ -8,6 +8,7 @@ enum AccessibilityIdentifier {
         static let cardNumber = "AccessibilityIdentifier.PaymentViewController.cardNumber"
         static let expiration = "AccessibilityIdentifier.PaymentViewController.expiration"
         static let cvc = "AccessibilityIdentifier.PaymentViewController.cvc"
+        static let sms = "AccessibilityIdentifier.PaymentViewController.sms"
         static let button = "AccessibilityIdentifier.PaymentViewController.button"
         static let closeButton = "AccessibilityIdentifier.PaymentViewController.closeButton"
         static let rememberSwitch = "AccessibilityIdentifier.PaymentViewController.rememberSwitch"

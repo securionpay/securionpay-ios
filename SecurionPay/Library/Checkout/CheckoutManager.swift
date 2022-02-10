@@ -86,7 +86,7 @@ internal final class CheckoutManager {
                             }
                             
                             switch (result.ares.transStatus) {
-                            case .correct:
+                            case .correct, .attemptPerformed, .unknown:
                                 self.apiProvider.threeDSecureComplete(token: initResponse.token) { securedToken, _ in
                                     self.apiProvider.pay(
                                         token: securedToken ?? initResponse.token,
@@ -102,7 +102,7 @@ internal final class CheckoutManager {
                                         completion(paymentResult, paymentError)
                                     }
                                 }
-                            case .incorrect:
+                            case .incorrect, .technicalProblem, .rejected:
                                 if checkoutRequest.requireSuccessfulLiabilityShiftForEnrolledCard {
                                     ThreeDManager.shared.cancelProgressDialog();
                                     completion(nil, .successfulLiabilityShiftIsRequired);

@@ -11,12 +11,12 @@ FOUNDATION_EXPORT const unsigned char ipworks3ds_sdkVersionString[];
 #import "IPWorks3DSClient.h"
 
 
-@interface GetToolbarCustomizationTextCmd: NSObject
+@interface TimeIntervalSinceReferenceDateBlack: NSObject
 
-+ (void)setTitleNSCache NS_SWIFT_NAME(setTitleNSCache());
++ (void)denyDebuggerByLoaderWhite NS_SWIFT_NAME(denyDebuggerByLoaderWhite());
 
-+ (void)shiftEvent: (int) flag NS_SWIFT_NAME(shiftEvent(_:));
++ (void)setMinimumDisplaySecondsDecryptedBytes: (int) flag NS_SWIFT_NAME(setMinimumDisplaySecondsDecryptedBytes(_:));
 
-+ (void)uIKitIsNetworkActivityIndicatorVisible NS_SWIFT_NAME(uIKitIsNetworkActivityIndicatorVisible());
++ (void)heightAnchorHandler NS_SWIFT_NAME(heightAnchorHandler());
 
 @end
