@@ -11,7 +11,7 @@ internal struct CompleteSubscription: Codable {
     }
 
     internal var readable: String {
-        CurrencyFormatter.format(amount: plan.amount, code: plan.currency)
+        CurrencyFormatter.format(amount: NSDecimalNumber(integerLiteral: plan.amount), code: plan.currency)
     }
     
     internal let plan: Plan
@@ -22,7 +22,7 @@ internal struct Donation: Equatable {
     internal let currency: String
     
     internal var readable: String {
-        CurrencyFormatter.format(amount: amount, code: currency)
+        CurrencyFormatter.format(amount: NSDecimalNumber(integerLiteral: amount), code: currency)
     }
 }
 
@@ -67,7 +67,7 @@ extension CheckoutRequest {
     }
     
     internal var readable: String {
-        CurrencyFormatter.format(amount: amount, code: currency)
+        CurrencyFormatter.format(amount: NSDecimalNumber(integerLiteral: amount), code: currency)
     }
     
     internal var rememberMe: Bool {

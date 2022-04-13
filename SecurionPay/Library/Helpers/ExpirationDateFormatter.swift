@@ -30,6 +30,8 @@ final class ExpirationDateFormatter {
                 } else {
                     return Result(text: "0" + first + "/" + components[1], placeholder: placeholder, resignFocus: false)
                 }
+            } else if components[1] == "0" {
+                return Result(text: String(first), placeholder: placeholder, resignFocus: false)
             } else if components[1].first ?? "0" == "0" {
                 let number = Int(first) ?? 0
                 if number <= 1 {
@@ -43,8 +45,9 @@ final class ExpirationDateFormatter {
                     return Result(text: "1", placeholder: placeholder, resignFocus: false)
                 }
             }
+        } else if components.count == 1 && backspace {
+            return Result(text: String(inputText.prefix(2)), placeholder: "MM/YY", resignFocus: false)
         }
-        
         
         updatedExpiration = inputText.replacingOccurrences(of: "/", with: "")
         if updatedExpiration.count == 1 {

@@ -54,7 +54,7 @@ final class CheckoutViewController: UIViewController {
     private var processing = false
     private var currentCard = CreditCard.empty
     private var mode: Mode
-    private var stackTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapGesture))
+    private var stackTapGestureRecognizer = UITapGestureRecognizer(target: CheckoutViewController.self, action: #selector(didTapGesture))
     
     private let checkoutRequest: CheckoutRequest
     private let completion: (PaymentResult?, SecurionPayError?) -> Void
