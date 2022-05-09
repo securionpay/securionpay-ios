@@ -1,10 +1,10 @@
 PODS:
-  - SecurionPay (1.0.10):
-    - SecurionPay/Resources (= 1.0.10)
-  - SecurionPay/Resources (1.0.10)
-  - SecurionPayDebug (1.0.10):
-    - SecurionPayDebug/Resources (= 1.0.10)
-  - SecurionPayDebug/Resources (1.0.10)
+  - SecurionPay (1.0.11):
+    - SecurionPay/Resources (= 1.0.11)
+  - SecurionPay/Resources (1.0.11)
+  - SecurionPayDebug (1.0.11):
+    - SecurionPayDebug/Resources (= 1.0.11)
+  - SecurionPayDebug/Resources (1.0.11)
   - SwiftLint (0.41.0)
 
 DEPENDENCIES:
@@ -23,8 +23,8 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  SecurionPay: 0f3d030fa0c67f838c79d3df2920efea3761edab
-  SecurionPayDebug: 5bc68dd5376e44076a158e408b39be855f6ebe73
+  SecurionPay: 6f7793704c8be3bf879cab2ef5f813c13a23b2c1
+  SecurionPayDebug: 96fb760e460cc31a867ab02fc57ad8a4ce26ca49
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
 
 PODFILE CHECKSUM: 01303d9f26a92a9671cc84f54962746ab57d3c62

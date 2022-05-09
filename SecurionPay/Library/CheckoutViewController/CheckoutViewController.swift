@@ -195,27 +195,19 @@ final class CheckoutViewController: UIViewController {
         }
     }
     
-    private func lookup() {
+    private func lookup(silent: Bool = false) {
         guard let email = email.text else { return }
-        guard Keychain.isEmailSaved(email: email) else {
-            setRememberSwitchActiveMode(mode: true)
-            if savedEmail != nil {
-                currentCard = CreditCard()
-                savedEmail = nil
-                cardNumber.text = nil
-                expiration.text = nil
-                cvc.text = nil
-                cardNumber.rightImage = currentCard.image
-            }
-            return
-        }
         
-        showSpinner(hideButton: false)
+        if !silent {
+            showSpinner(hideButton: false)
+        }
         
         checkoutManager.lookup(email: email) { [weak self] lookupResult, error in
             guard let self = self else { return }
-            self.button.changeState(to: .normal)
-            self.email.text = email
+            if !silent {
+                self.button.changeState(to: .normal)
+                self.email.text = email
+            }
             if let lookupResult = lookupResult {
                 if let phone = lookupResult.phone {
                     self.checkoutManager.sendSMS(email: email) { [weak self] sms, error in
@@ -251,22 +243,24 @@ final class CheckoutViewController: UIViewController {
                     self.updateButtonStatus()
                 }
             } else {
-                self.emailInfoLabel.isHidden = false
-                self.emailContainer.isHidden = false
-                self.cardContainerLabel.isHidden = false
-                self.cardContainer.isHidden = false
-                self.rememberSwitch.isHidden = false
-                self.spinnerSection.isHidden = true
-                self.currentCard = .empty
-                self.cardNumber.text = self.currentCard.readable
-                self.expiration.text = nil
-                self.savedEmail = email
-                self.email.text = email
-                self.cardNumber.rightImage = self.currentCard.image
-                self.setTextFieldsEnabled(true)
-                self.setRememberSwitchActiveMode(mode: true)
-                self.email.becomeFirstResponderWithoutAnimation()
-                self.updateButtonStatus()
+                if !silent {
+                    self.emailInfoLabel.isHidden = false
+                    self.emailContainer.isHidden = false
+                    self.cardContainerLabel.isHidden = false
+                    self.cardContainer.isHidden = false
+                    self.rememberSwitch.isHidden = false
+                    self.spinnerSection.isHidden = true
+                    self.currentCard = .empty
+                    self.cardNumber.text = self.currentCard.readable
+                    self.expiration.text = nil
+                    self.savedEmail = email
+                    self.email.text = email
+                    self.cardNumber.rightImage = self.currentCard.image
+                    self.setTextFieldsEnabled(true)
+                    self.setRememberSwitchActiveMode(mode: true)
+                    self.email.becomeFirstResponderWithoutAnimation()
+                    self.updateButtonStatus()
+                }
             }
         }
     }
@@ -403,15 +397,27 @@ final class CheckoutViewController: UIViewController {
                         currency: self.donation?.currency ?? self.subscription?.plan.currency,
                         navigationControllerFor3DS: self.navigationController!
                     ) { [weak self] result, error in
+                        Keychain.lastEmail = result != nil ? savedEmail : nil
+                        if error != nil {
+                            self?.savedEmail = nil
+                            self?.cardNumber.text = nil
+                            self?.expiration.text = nil
+                            self?.cvc.text = nil
+                            self?.currentCard = .empty
+                            self?.cardNumber.rightImage = self?.currentCard.image
+                            self?.setRememberSwitchActiveMode(mode: true)
+                        }
                         self?.processPaymentResult(result: result, error: error)
                     }
                 } else if let _ = error {
                     self.showError(error: .unknown)
                     self.setTextFieldsEnabled(true)
                     self.button.changeState(to: .normal)
+                    self.processing = false
                 } else {
                     self.setTextFieldsEnabled(true)
                     self.button.changeState(to: .normal)
+                    self.processing = false
                 }
             }
             return
@@ -918,7 +924,7 @@ extension CheckoutViewController: UITextFieldDelegate {
             if let cursorLocation = cursorLocation {
                 textField.selectedTextRange  = textField.textRange(from: cursorLocation, to: cursorLocation)
             }
-            lookup()
+            lookup(silent: true)
             if savedEmail != nil {
                 currentCard = CreditCard()
                 savedEmail = nil
