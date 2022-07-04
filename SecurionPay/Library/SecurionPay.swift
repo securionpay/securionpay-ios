@@ -50,7 +50,7 @@ public final class SecurionPay: NSObject {
         token: Token,
         amount: Int,
         currency: String,
-        navigationControllerFor3DS: UINavigationController,
+        navigationControllerFor3DS: UIViewController,
         completion: @escaping (Token?, SecurionPayError?) -> Void) {
             checkIsConfigured()
             guard !busy else {
