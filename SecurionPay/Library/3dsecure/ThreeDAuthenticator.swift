@@ -8,7 +8,7 @@ internal final class ThreeDAuthenticator {
         token: Token,
         amount: Int,
         currency: String,
-        navigationControllerFor3DS: UINavigationController,
+        navigationControllerFor3DS: UIViewController,
         bundleIdentifier: String?,
         completion: @escaping (Token?, SecurionPayError?) -> Void) {
             self.apiProvider.threeDSecureCheck(token: token, amount: amount, currency: currency) { [weak self] initResponse, initializationError in
