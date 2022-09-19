@@ -1,0 +1,6 @@
+framework module SecurionPay {
+  umbrella header "SecurionPay-umbrella.h"
+
+  export *
+  module * { export * }
+}

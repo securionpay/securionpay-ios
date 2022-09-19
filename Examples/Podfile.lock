@@ -1,0 +1,23 @@
+PODS:
+  - SecurionPay (1.0.16)
+  - SwiftLint (0.41.0)
+
+DEPENDENCIES:
+  - SecurionPay (from `..`)
+  - SwiftLint (= 0.41.0)
+
+SPEC REPOS:
+  trunk:
+    - SwiftLint
+
+EXTERNAL SOURCES:
+  SecurionPay:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  SecurionPay: 1bd0042464cef2b8c71da94ebc78b9111935e858
+  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
+
+PODFILE CHECKSUM: 4588e34c383de11b8fa6129171ae403c3e43011f
+
+COCOAPODS: 1.11.2

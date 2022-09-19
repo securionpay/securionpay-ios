@@ -1,0 +1,4 @@
+framework module SecurionPay {
+  header "SecurionPay-Swift.h"
+  requires objc
+}
